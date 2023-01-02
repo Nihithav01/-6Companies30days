@@ -1,1 +1,24 @@
+class Solution(object):
+    def getHint(self, secret, guess):
+        bulls = 0
+        cows = 0
+        d = {}
 
+        for ele in secret:
+            if ele in d:
+                d[ele] += 1
+            else:
+                d[ele] = 1
+
+        
+        for i in range(len(secret)):
+            if guess[i] == secret[i]:
+                bulls += 1
+                d[guess[i]] -= 1
+            
+        for i in range(len(secret)):
+            if guess[i] != secret[i] and guess[i] in d and d[guess[i]] != 0:
+                cows += 1
+                d[guess[i]] -= 1
+
+        return str(bulls) + "A" + str(cows) + "B"
