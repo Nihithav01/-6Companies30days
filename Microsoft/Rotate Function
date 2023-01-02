@@ -1,0 +1,17 @@
+class Solution(object):
+    def maxRotateFunction(self, nums):
+        tot = 0
+        size = len(nums)
+        f = [0] * size
+        for num in nums:
+            tot += num
+        
+        for i in range(size):
+            f[0] += i * nums[i]
+        maxi = f[0]
+        for i in range(len(nums) - 1):
+            f[i + 1] = f[i] + tot - size * nums[-1 -i]
+            maxi = max(maxi, f[i + 1])
+
+        
+        return maxi
