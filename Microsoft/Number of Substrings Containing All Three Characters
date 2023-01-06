@@ -1,0 +1,12 @@
+class Solution(object):
+    def numberOfSubstrings(self, s):
+        n = len(s)
+        a = b = c = -1
+        res = 0
+        for i in range(n):
+            if s[i]=='a': a = i+1
+            if s[i]=='b': b = i+1
+            if s[i]=='c': c = i+1
+            if a == -1 or b == -1  or c == -1: continue;
+            else: res += min(a,b,c)
+        return res
