@@ -1,0 +1,16 @@
+class Solution:
+    def longestPrefix(self, s: str) -> str:
+        result = ""
+        count = 0
+        size = len(s)
+        prefix = ""
+        suffix = ""
+        for i in range(len(s) - 1):
+            count += 1
+            prefix += s[i]
+            suffix = s[size - count] + suffix
+          
+            if prefix == suffix:
+                result = prefix
+        
+        return result
