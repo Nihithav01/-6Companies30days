@@ -1,0 +1,15 @@
+class Solution:
+    def nthPersonGetsNthSeat(self, n: int) -> float:
+        if n == 1:
+            return 1.0
+        elif n == 2:
+            return 0.5
+        dp = [0] * n
+        dp[0] = 1.0
+        dp[1] = 0.5
+        tot = dp[0] + dp[1]
+        for i in range(2, n):
+            dp[i] = (1.0 / (i + 1)) * tot
+            tot += dp[i]
+        
+        return dp[-1]
