@@ -1,0 +1,29 @@
+class Solution:
+    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+        d = []
+        size = numCourses
+        visited = [0] * size
+        for _ in range(numCourses):
+            d.append([])
+        for edge in prerequisites:
+            u, v = edge
+            d[u].append(v)
+        
+        def dfs(s, visited):
+            if visited[s] == -1:
+                return False
+            if visited[s] == 1:
+                return True
+            visited[s] = -1
+
+            for co in d[s]:
+                if not dfs(co, visited):
+                    return False
+            
+            visited[s] = 1
+            return True
+
+        for co in range(size):
+            if not dfs(co, visited):
+                return False
+        return True
