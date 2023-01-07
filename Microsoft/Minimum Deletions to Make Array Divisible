@@ -1,0 +1,26 @@
+class Solution:
+    def minOperations(self, nums: List[int], numsDivide: List[int]) -> int:
+        def gcdc(x, y):
+            if x % y == 0:
+                return y
+            return  gcdc(y, x % y)
+        
+        size = len(numsDivide)
+        deletions = 0
+        nums.sort()
+        if size == 1:
+            gcd = numsDivide[0]
+        else:
+            gcd = gcdc(numsDivide[0], numsDivide[1])
+        for i in range(2, size):
+            gcd = gcdc(gcd, numsDivide[i])
+            
+        for num in nums:
+            if gcd % num == 0:
+                return deletions
+                break
+            elif num < gcd:
+                deletions += 1
+        
+        return -1
+      
