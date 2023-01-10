@@ -1,0 +1,61 @@
+class Solution:
+    def mostProfitablePath(self, edges: List[List[int]], bob: int, amount: List[int]) -> int:
+       
+        adj={}
+        l=len(amount)
+        for a,b in edges:
+            if a not in adj:
+                adj[a]=[]
+            adj[a].append(b)
+            if b not in adj:
+                adj[b]=[]
+            adj[b].append(a)
+      
+        par={}
+        dis={}
+        
+        stack=[(0,0,0)]
+        while stack:
+            u,p,d=stack.pop()
+            par[u]=p
+            dis[u]=d
+            for i in adj[u]:
+                #print(i,u)
+                if i==p:
+                    continue
+                stack.append((i,u,d+1))
+       
+        cur=bob
+        bobdis=0
+        while cur:
+            if dis[cur]>bobdis:
+                amount[cur]=0
+            if dis[cur]==bobdis:
+                amount[cur]//=2
+            cur=par[cur]
+            bobdis+=1
+       
+        
+        stack=[(0,0,amount[0])]
+        
+        leaf=set()
+        for k,v in adj.items():
+            if len(v)==1 and k:
+                leaf.add(k)
+     
+        profit=-100000
+        
+        while stack:
+            n,p,sm=stack.pop()
+           
+            if n in leaf:
+                profit=max(profit,sm)
+                
+            for i in adj[n]:
+                if i==p:
+                    continue
+                stack.append((i,n,sm+amount[i]))
+        
+        return profit
+            
+        
