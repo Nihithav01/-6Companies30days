@@ -1,0 +1,16 @@
+
+class Solution:
+    def dfs(self, k, n, s):
+        if k < 0 or n < 0 or s > n:
+            return []
+        if s <= n and k == 1:
+            return [[n]] if n < 10 else []
+        result = []
+        for s in range(s, 10):
+            ret = self.dfs(k-1, n-s, s+1)
+            result += [[s] + r for r in ret]
+        return result
+            
+    def combinationSum3(self, k, n):
+        return self.dfs(k, n, 1)
+        
