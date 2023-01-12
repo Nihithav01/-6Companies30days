@@ -1,0 +1,22 @@
+class Solution:
+    def dis(self, distances, p1, p2):
+        x = (p1[0] - p2[0]) ** 2
+        y = (p1[1] - p2[1]) ** 2
+        distances.append(x + y)
+        
+    def validSquare(self, p1: List[int], p2: List[int], p3: List[int], p4: List[int]) -> bool:
+        distances = []
+        if p1 == p2 == p3 == p4:
+            return False
+        self.dis(distances, p1, p2)
+        self.dis(distances, p1, p3)
+        self.dis(distances, p1, p4)
+        self.dis(distances, p2, p3)
+        self.dis(distances, p2, p4)
+        self.dis(distances, p3, p4)
+
+        distances.sort()
+        
+        if distances[0] == distances[1] == distances[2] == distances[3]  and distances[4] == distances[5] :
+            return True
+        return False
