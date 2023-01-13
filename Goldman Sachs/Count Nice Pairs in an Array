@@ -1,0 +1,16 @@
+class Solution:
+    def countNicePairs(self, nums: List[int]) -> int:
+        MOD = 10 ** 9 + 7
+        count = 0
+        hmap = {}
+
+        for num in nums:
+            val = num - int(str(num)[::-1])
+            if val not in hmap:
+                hmap[val] = 0
+            hmap[val] += 1
+        
+        for k in hmap.keys():
+            v = hmap[k]
+            count = (count +  ((v * (v - 1)) // 2)) % MOD
+        return count
