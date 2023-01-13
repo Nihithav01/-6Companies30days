@@ -1,0 +1,24 @@
+class Solution:
+    def invalidTransactions(self, transactions: List[str]) -> List[str]:
+        
+        
+        res = set()
+        d = {}
+        size = len(transactions)
+
+        for i in range(size):
+            name, time, amt, place = transactions[i].split(",")
+            time = int(time)
+            amt = int(amt)
+            if name not in d:
+                d[name] = []
+            if amt > 1000:
+                res.add(i)
+
+            for j, t, p in d[name]:
+                if abs(time - t) <= 60 and place != p:
+                    res.add(j)
+                    res.add(i)
+            d[name].append((i, time, place))
+        
+        return [transactions[i] for i  in res]
